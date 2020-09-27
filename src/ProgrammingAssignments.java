@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class FirstDuplicate {
+public class ProgrammingAssignments {
     public static void main(String args[]) {
 //    String s="aabaa";
 //    String s="hlbeeykoqqqqokyeeblh";
@@ -56,24 +56,86 @@ public class FirstDuplicate {
 //        System.out.println(maxRevenueFromStocks(prices, algo, 4));
 
 
-    int a[][]={{1,2,1},
-            {2,1,1},
-            {1,1,1}
-            };
-    minesweeper(a);
+//    int a[][]={{1,2,1},
+//            {2,1,1},
+//            {1,1,1}
+//            };
 
+        boolean a[][] = {{true, false, false},
+                {false, true, false},
+                {false, false, false}
+        };
 
+        minesweeper(a);
 
     }
 
-    static int[][] minesweeper(boolean[][] matrix) {
+    static int[][] minesweeper(boolean[][] a) {
+        int[][] result = new int[a.length][a[0].length];
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[0].length; j++) {
+                    int counter = 0;
+                    try {
+                        if (a[i][j + 1] == true) {
+                            counter++;
+                        }
+                    } catch (ArrayIndexOutOfBoundsException e) {
 
-        return null;
+                    }
+                    try{
+                    if (a[i + 1][j + 1]) {
+                        counter++;
+                    }
+                    } catch (ArrayIndexOutOfBoundsException e){
+
+                    }
+                    try {
+                    if (a[i + 1][j]) {
+                        counter++;
+                    }
+                    } catch (ArrayIndexOutOfBoundsException e){
+
+                    }
+                    try{
+                    if (a[i + 1][j - 1]) {
+                        counter++;
+                    }
+                    } catch (ArrayIndexOutOfBoundsException e){
+
+                    }
+                    try{
+                    if (a[i][j - 1]) {
+                        counter++;
+                    }} catch (ArrayIndexOutOfBoundsException e){
+
+                    }
+                    try{
+                    if (a[i - 1][j - 1]) {
+                        counter++;
+                    }
+                    } catch (ArrayIndexOutOfBoundsException e){
+
+                    }
+                    try{
+                    if (a[i - 1][j]) {
+                        counter++;
+                    }
+                    } catch (ArrayIndexOutOfBoundsException e){
+
+                    }
+                    try{
+                    if (a[i - 1][j + 1]) {
+                        counter++;
+                    }
+                    } catch (ArrayIndexOutOfBoundsException e){
+
+                    }
+                    result[i][j]=counter;
+                    System.out.println(counter);
+        }
     }
-
-
-
-
+        return result;
+}
 
     static int maxRevenueFromStocks(int[] prices, int[] algo, int k) {
         HashSet<Integer> maxRevenue = new HashSet<>();
@@ -91,6 +153,7 @@ public class FirstDuplicate {
         }
         return result;
     }
+
     static int[][] mutateMatrix(int[][] a, int[] q) {
         for (int x = 0; x < q.length; x++) {
             if (q[x] == 0) {
@@ -162,6 +225,7 @@ public class FirstDuplicate {
         }
         return a;
     }
+
     static int goodTuples(int[] a) {
         int result = 0;
         boolean goodTuple = false;
@@ -184,6 +248,7 @@ public class FirstDuplicate {
         }
         return result;
     }
+
     static int[][] boxBlur(int[][] a) {
         int arraySizeRow = a.length - 3 + 1;
         int arraySizeColumn = a[0].length - 3 + 1;
@@ -213,6 +278,7 @@ public class FirstDuplicate {
 
         return result;
     }
+
     static boolean isIPv4Address(String a) {
 
 //        250 to 255 25[0-5]
@@ -230,6 +296,7 @@ public class FirstDuplicate {
         }
         return true;
     }
+
     static int arrayMaximalAdjacentDifference(int[] a) {
         int maxAdjDifference = 0;
         for (int i = 1; i < a.length - 1; i++) {
@@ -243,6 +310,7 @@ public class FirstDuplicate {
         System.out.println(maxAdjDifference);
         return maxAdjDifference;
     }
+
     static boolean areEquallyStrong(int yourLeft, int yourRight, int friendsLeft, int friendsRight) {
         int yourstrongest = yourLeft > yourRight ? yourLeft : yourRight;
         int yourweakest = yourLeft < yourRight ? yourLeft : yourRight;
@@ -255,6 +323,7 @@ public class FirstDuplicate {
 
 
     }
+
     static boolean palindromeRearranging(String inputString) {
         boolean result = false;
         HashMap<Character, Integer> charCount = new HashMap<>();
@@ -284,6 +353,7 @@ public class FirstDuplicate {
         }
         return false;
     }
+
     static int arrayChange(int[] a) {
         int result = 0;
         for (int i = 0; i < a.length - 1; i++) {
@@ -297,6 +367,7 @@ public class FirstDuplicate {
 
         return result;
     }
+
     static boolean areSimilar(int[] a, int[] b) {
         HashMap<Integer, Integer> firstArray = new HashMap<>();
         HashMap<Integer, Integer> secondArray = new HashMap<>();
@@ -326,6 +397,7 @@ public class FirstDuplicate {
         }
 
     }
+
     static String[] addBorder(String[] picture) {
         ArrayList<String> newList = new ArrayList<>();
 
@@ -348,6 +420,7 @@ public class FirstDuplicate {
         return newList.toArray(new String[0]);
 
     }
+
     static int[] alternatingSums(int[] a) {
         int result[] = new int[2];
         result[0] = 0;
@@ -360,6 +433,7 @@ public class FirstDuplicate {
         }
         return result;
     }
+
     static String reverseInParentheses(String inputString) {
         List<String> inParanthesis = new ArrayList();
         int paranthesisCount = 0;
@@ -393,6 +467,7 @@ public class FirstDuplicate {
         }
 
     }
+
     static int[] sortByHeight(int[] a) {
         int treecount = (int) Arrays.stream(a).filter(x -> (x == -1)).count();
         int treeIndexes[] = new int[treecount];
@@ -425,6 +500,7 @@ public class FirstDuplicate {
             System.out.println(i);
         return a;
     }
+
     static boolean isLucky(int n) {
         String s1 = Integer.toString(n);
         int firstSum = 0;
@@ -440,6 +516,7 @@ public class FirstDuplicate {
         return false;
 
     }
+
     static int makeArrayConsecutive2(int[] statues) {
         int result = 0;
         Arrays.sort(statues);
@@ -453,6 +530,7 @@ public class FirstDuplicate {
         }
         return result;
     }
+
     static int shapeArea(int n) {
         if (n == 1) {
             return 1;
@@ -460,6 +538,7 @@ public class FirstDuplicate {
             return 4 * (n - 1) + shapeArea(n - 1);
         }
     }
+
     static int adjacentElementsProduct(int[] inputArray) {
         int result = -1000000000;
         for (int i = 0; i < inputArray.length; i++) {
@@ -475,6 +554,7 @@ public class FirstDuplicate {
         }
         return result;
     }
+
     static int avoidObstacles(int[] a) {
         Arrays.sort(a);
         HashSet<Integer> array = new HashSet<>();
@@ -499,6 +579,7 @@ public class FirstDuplicate {
         }
         return jumplength;
     }
+
     static int commonCharacterCount(String s1, String s2) {
         Map<Character, Integer> characterTables1 = new HashMap<>();
         Map<Character, Integer> characterTables2 = new HashMap<>();
@@ -523,6 +604,7 @@ public class FirstDuplicate {
                 .mapToInt(c -> Math.min(characterTables1.get(c), characterTables2.get(c)))
                 .sum();
     }
+
     static String[] allLongestStrings(String[] inputArray) {
         List result = new ArrayList<String>();
         int stringLength = 0;
@@ -542,6 +624,7 @@ public class FirstDuplicate {
         }
         return a;
     }
+
     static int matrixElementsSum(int[][] matrix) {
         int sum = 0;
         for (int i = 0; i < matrix.length; i++) {
@@ -557,6 +640,7 @@ public class FirstDuplicate {
         }
         return sum;
     }
+
     static boolean almostIncreasingSequence(int[] sequence) {
         boolean result = false;
         int problemValues = 0;
@@ -577,6 +661,7 @@ public class FirstDuplicate {
         }
         return result;
     }
+
     static boolean checkPalindrome(String inputString) {
         boolean result = true;
         int stringLength = inputString.length();
