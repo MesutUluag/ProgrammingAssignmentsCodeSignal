@@ -56,17 +56,52 @@ public class ProgrammingAssignments {
 //        System.out.println(maxRevenueFromStocks(prices, algo, 4));
 
 
-//    int a[][]={{1,2,1},
-//            {2,1,1},
-//            {1,1,1}
-//            };
+//        boolean a[][] = {{true, false, false},
+//                {false, true, false},
+//                {false, false, false}
+//        };
+//
+//        minesweeper(a);
 
-        boolean a[][] = {{true, false, false},
-                {false, true, false},
-                {false, false, false}
-        };
+//            int a[]={1, 2, 3, 4, 5 };
+//            arrayReplace(a, 3,0);
 
-        minesweeper(a);
+//        System.out.println(evenDigitsOnly(248622));
+
+        System.out.println(variableName("var_1__Int"));
+
+
+    }
+
+    static boolean variableName(String name) {
+        String Pattern = "[a-zA-Z_]+[\\w_]*";
+        if (!name.matches(Pattern)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    static boolean evenDigitsOnly(int n) {
+        char[] nChar = (Integer.toString(n)).toCharArray();
+
+
+        for (int i = 0; i < nChar.length; i++) {
+            if ((int) nChar[i] % 2 != 0) {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
+    static int[] arrayReplace(int[] a, int elemToReplace, int substitutionElem) {
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == elemToReplace)
+                a[i] = substitutionElem;
+        }
+        return a;
+
 
     }
 
@@ -74,68 +109,69 @@ public class ProgrammingAssignments {
         int[][] result = new int[a.length][a[0].length];
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[0].length; j++) {
-                    int counter = 0;
-                    try {
-                        if (a[i][j + 1] == true) {
-                            counter++;
-                        }
-                    } catch (ArrayIndexOutOfBoundsException e) {
-
+                int counter = 0;
+                try {
+                    if (a[i][j + 1] == true) {
+                        counter++;
                     }
-                    try{
+                } catch (ArrayIndexOutOfBoundsException e) {
+
+                }
+                try {
                     if (a[i + 1][j + 1]) {
                         counter++;
                     }
-                    } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
 
-                    }
-                    try {
+                }
+                try {
                     if (a[i + 1][j]) {
                         counter++;
                     }
-                    } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
 
-                    }
-                    try{
+                }
+                try {
                     if (a[i + 1][j - 1]) {
                         counter++;
                     }
-                    } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
 
-                    }
-                    try{
+                }
+                try {
                     if (a[i][j - 1]) {
                         counter++;
-                    }} catch (ArrayIndexOutOfBoundsException e){
-
                     }
-                    try{
+                } catch (ArrayIndexOutOfBoundsException e) {
+
+                }
+                try {
                     if (a[i - 1][j - 1]) {
                         counter++;
                     }
-                    } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
 
-                    }
-                    try{
+                }
+                try {
                     if (a[i - 1][j]) {
                         counter++;
                     }
-                    } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
 
-                    }
-                    try{
+                }
+                try {
                     if (a[i - 1][j + 1]) {
                         counter++;
                     }
-                    } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
 
-                    }
-                    result[i][j]=counter;
-                    System.out.println(counter);
+                }
+                result[i][j] = counter;
+                System.out.println(counter);
+            }
         }
-    }
         return result;
-}
+    }
 
     static int maxRevenueFromStocks(int[] prices, int[] algo, int k) {
         HashSet<Integer> maxRevenue = new HashSet<>();
