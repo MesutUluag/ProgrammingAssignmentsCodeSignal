@@ -68,9 +68,80 @@ public class ProgrammingAssignments {
 
 //        System.out.println(evenDigitsOnly(248622));
 
-        System.out.println(variableName("var_1__Int"));
+//        System.out.println(variableName("var_1__Int"));
+
+        //        String a="crazy";
+//        System.out.println(alphabeticShift(a));
+
+//        System.out.println(chessBoardCellColor("A1","H3"));
+
+//        System.out.println(circleOfNumbers(10, 2));
+
+//        System.out.println(depositProfit(100,20,170));
+
+//        int a[]={-4, -1};
+//        System.out.println(absoluteValuesSumMinimization(a));
+
+    }
 
 
+    static int absoluteValuesSumMinimization(int[] a) {
+        return a[(a.length-1)/2];
+    }
+
+    static int depositProfit(int deposit, int rate, int threshold) {
+        double lastdeposit=deposit;
+        int yearCount = 0;
+        while(lastdeposit<threshold) {
+            lastdeposit += lastdeposit * rate / 100;
+            yearCount++;
+        }
+        return yearCount;
+    }
+
+    static int circleOfNumbers(int n, int firstNumber) {
+
+        return (firstNumber+n/2)%n;
+
+    }
+
+    static boolean chessBoardCellColor(String cell1, String cell2) {
+        Hashtable<String, Boolean> chessBoard= new Hashtable<>();
+        int charIndex='A';
+        int index=1;
+        boolean color=true;
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                chessBoard.put((char)charIndex+Integer.toString(index),color);
+                index++;
+                color=!color;
+            }
+            index=1;
+            charIndex++;
+            color=!color;
+        }
+        System.out.println(chessBoard);
+        if(chessBoard.get(cell1)==chessBoard.get(cell2)){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    static String alphabeticShift(String a) {
+        char []arrayString=a.toCharArray();
+
+        for(int i=0;i<a.length();i++){
+            int x=a.charAt(i);
+            if(a.charAt(i)=='z'){
+                arrayString[i]='a';
+            } else {
+                x++;
+                arrayString[i]=(char)x;
+            }
+        }
+        String result= new String(arrayString);
+        return result;
     }
 
     static boolean variableName(String name) {
