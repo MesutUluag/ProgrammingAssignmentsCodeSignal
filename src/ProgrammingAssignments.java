@@ -82,17 +82,166 @@ public class ProgrammingAssignments {
 //        int a[]={-4, -1};
 //        System.out.println(absoluteValuesSumMinimization(a));
 
+//        String a[] = {"aba", "bbb", "bab"};
+//        System.out.println(stringsRearrangement(a));
+
+//        int [] a={1, 1,1,1};
+//        System.out.println(extractEachKth(a,1));
+//        int []result= new int[hashMap.size()]; just an example
+
+//        String a="var_1__Int";
+//        firstDigit(a);
+
+//         differentSymbolsNaive("cabca");
+
+//        int []a= {2, 3, 5, 1, 6};
+//        arrayMaxConsecutiveSum(a,2);
+
+//        System.out.println(growingPlant(100,10,910));
+
+
+       System.out.println(knapsackLight(3,5,3,8,10));
+
     }
 
+    static int knapsackLight(int value1, int weight1, int value2, int weight2, int maxW) {
+        if(weight1+weight2<=maxW){
+            return value1+value2;
+        } else if((weight1>maxW)&&(weight1<=maxW)){
+            return value2;
+        } else if((weight2>maxW)&&(weight2<=maxW)){
+            return value1;
+        } else if((weight1>weight2)&&(weight1<=maxW)&&value1>value2){
+            return value1;
+        } else if((weight1<weight2)&&(weight2>maxW)&&(weight1<=maxW)){
+            return value1;
+        } else if((weight2>weight1)&&(weight2<=maxW)&&value2>value1){
+            return value2;
+        } else if((weight2<weight1)&&(weight1>maxW)&&(weight2<=maxW)) {
+            return value2;
+        } else if((weight1<=maxW)&&(weight2<=maxW)&&value1>=value2){
+            return value1;
+        } else if((weight1<=maxW)&&(weight2<=maxW)&&value2>=value1){
+            return value2;
+        }
+        return 0;
+    }
+
+    static int growingPlant(int upSpeed, int downSpeed, int desiredHeight) {
+        int day=0;
+        int height=0;
+        while(height<desiredHeight){
+            day++;
+            height+=upSpeed;
+            if(height>=desiredHeight){
+                return day;
+            }
+            height-=downSpeed;
+        }
+        return day;
+    }
+
+    static int arrayMaxConsecutiveSum(int[] a, int k) {
+        HashSet<Integer> hashSet=new HashSet<>();
+        for(int i=0;i<a.length-k+1;i++){
+            int sum=0;
+            for(int j=i;j<k+i;j++){
+                sum+=a[j];
+            }
+            hashSet.add(sum);
+        }
+        return hashSet.stream().max(Integer::compareTo).get();
+    }
+
+    static int differentSymbolsNaive(String s) {
+        HashSet<Character> hashSet = new HashSet<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            hashSet.add(s.charAt(i));
+        }
+        return hashSet.size();
+    }
+
+    static char firstDigit(String inputString) {
+        for (int i = 0; i < inputString.length(); i++) {
+            if (Character.isDigit(inputString.charAt(i))) {
+                return inputString.charAt(i);
+            }
+        }
+        return 0;
+    }
+
+    static int[] extractEachKth(int[] a, int k) {
+        HashMap<Integer, Integer> hashMap = new HashMap();
+        for (int i = 0; i < a.length; i++) {
+            hashMap.put(i, a[i]);
+        }
+        for (int i = 0; i < a.length; i++) {
+            if ((i + 1) % (k) == 0) {
+                hashMap.remove(i);
+            }
+        }
+        int[] result = new int[hashMap.size()];
+        int counter = 0;
+        for (int i : hashMap.keySet()) {
+            result[counter] = hashMap.get(i);
+            counter++;
+        }
+
+        for (int i : result)
+            System.out.println(i);
+        return result;
+    }
+
+    static boolean stringsRearrangement(String[] a) {
+
+        for (int i = 0; i < a.length; i++) {
+
+            for (int j = 0; j < a.length - 1; j++) {
+                for (int x = 0; x < a.length - 1; x++) {
+                    if (!control(a[x], a[x + 1])) {
+                        break;
+                    }
+                    if (x == a.length - 2) {
+                        return true;
+                    }
+                }
+                String temp;
+                temp = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = temp;
+//                System.out.println(a[j]);
+            }
+            for (String k : a)
+                System.out.println(k);
+        }
+        return false;
+    }
+
+    static boolean control(String stra, String strb) {
+        char[] a = stra.toCharArray();
+        char[] b = strb.toCharArray();
+        int sameCharCount = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] != b[i]) {
+                sameCharCount++;
+            }
+        }
+        if (sameCharCount == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     static int absoluteValuesSumMinimization(int[] a) {
-        return a[(a.length-1)/2];
+        return a[(a.length - 1) / 2];
     }
 
     static int depositProfit(int deposit, int rate, int threshold) {
-        double lastdeposit=deposit;
+        double lastdeposit = deposit;
         int yearCount = 0;
-        while(lastdeposit<threshold) {
+        while (lastdeposit < threshold) {
             lastdeposit += lastdeposit * rate / 100;
             yearCount++;
         }
@@ -101,46 +250,46 @@ public class ProgrammingAssignments {
 
     static int circleOfNumbers(int n, int firstNumber) {
 
-        return (firstNumber+n/2)%n;
+        return (firstNumber + n / 2) % n;
 
     }
 
     static boolean chessBoardCellColor(String cell1, String cell2) {
-        Hashtable<String, Boolean> chessBoard= new Hashtable<>();
-        int charIndex='A';
-        int index=1;
-        boolean color=true;
-        for(int i=0;i<8;i++){
-            for(int j=0;j<8;j++){
-                chessBoard.put((char)charIndex+Integer.toString(index),color);
+        Hashtable<String, Boolean> chessBoard = new Hashtable<>();
+        int charIndex = 'A';
+        int index = 1;
+        boolean color = true;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                chessBoard.put((char) charIndex + Integer.toString(index), color);
                 index++;
-                color=!color;
+                color = !color;
             }
-            index=1;
+            index = 1;
             charIndex++;
-            color=!color;
+            color = !color;
         }
         System.out.println(chessBoard);
-        if(chessBoard.get(cell1)==chessBoard.get(cell2)){
+        if (chessBoard.get(cell1) == chessBoard.get(cell2)) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }
 
     static String alphabeticShift(String a) {
-        char []arrayString=a.toCharArray();
+        char[] arrayString = a.toCharArray();
 
-        for(int i=0;i<a.length();i++){
-            int x=a.charAt(i);
-            if(a.charAt(i)=='z'){
-                arrayString[i]='a';
+        for (int i = 0; i < a.length(); i++) {
+            int x = a.charAt(i);
+            if (a.charAt(i) == 'z') {
+                arrayString[i] = 'a';
             } else {
                 x++;
-                arrayString[i]=(char)x;
+                arrayString[i] = (char) x;
             }
         }
-        String result= new String(arrayString);
+        String result = new String(arrayString);
         return result;
     }
 
