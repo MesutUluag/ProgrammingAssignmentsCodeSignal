@@ -100,53 +100,198 @@ public class ProgrammingAssignments {
 //        System.out.println(growingPlant(100,10,910));
 
 
-       System.out.println(knapsackLight(3,5,3,8,10));
+//       System.out.println(knapsackLight(3,5,3,8,10));
+
+//        String S = "ABDCA";
+//        int[] x = {2, -1, -4, -3, 2};
+//        int[] y = {2, -2, 4, 1, -2};
+//        planeSolution(S, x, y);
+
+
+//TOPTAL ASSIGNMENT
+        //FIRST PROBLEM
+//        String[] T = {"test1a", "test2", "test1b", "test1c", "test3"};
+//        String[] R = {"Wrong answer", "OK", "Runtime error", "OK", "Time limit exceeded"};
+//        solution(T, R);
+
+        //SECOND PROBLEM
+//        int[] a={7,5,2,7,2,7,4,7};
+//        solution2(a);
+       //THIRD PROBLEM
+//          int [] a={2,1,3};
+//          solution(a, 2);
+
+    }
+
+    //codility solution-1
+    static public int solution(String[] T, String[] R) {
+        HashMap<String,String> hashMap= new HashMap<>();
+        for(int i=0;i<T.length;i++){
+            hashMap.put(T[i],R[i]);
+        }
+        HashSet<Integer> hashSet= new HashSet<>();
+        HashMap<String,Boolean> resultMap= new HashMap<>();
+        for(String i:hashMap.keySet()){
+            if(hashMap.get(i)=="OK"){
+                resultMap.put(i,true);
+            } else if(hashMap.get(i)!="OK"){
+                resultMap.put(i,false);
+            }
+        }
+        HashMap<String, Boolean> result2= new HashMap<String, Boolean>();
+        for(String i:resultMap.keySet()){
+            if(!Character.isDigit(i.charAt(i.length()-1))){
+                String changed=removeLastChar(i);
+                if(resultMap.get(i)!=false){
+                    result2.put(changed, resultMap.get(i));
+                }
+            } else {
+                result2.put(i,resultMap.get(i));
+            }
+        }
+        double result3=0.0;
+        int sum3=0;
+        for(String i:result2.keySet()){
+            if(result2.get(i)){
+                sum3++;
+            }
+        }
+        int hashmapsize=hashMap.size();
+        result3=sum3*100/hashmapsize;
+        System.out.println(result3);
+        return (int)result3;
+    }
+    static public String removeLastChar(String str) {
+        return removeLastChars(str, 1);
+    }
+    public static String removeLastChars(String str, int chars) {
+        return str.substring(0, str.length() - chars);
+    }
+
+    static public int solution2(int[] A) {
+        HashSet<Integer> hashSet= new HashSet<>();
+        for(int i=0;i<A.length;i++){
+            hashSet.add(A[i]);
+        }
+        int result=1000000;
+        int days=0;
+        HashSet<Integer> hashSet2= new HashSet<>();
+        for(int i=0;i<A.length;i++){
+            for(int j=i;j<A.length;j++){
+                hashSet2.add(A[j]);
+                days++;
+                if(hashSet2.size()==hashSet.size()){
+                    if(result>days){
+                        result=days;
+                    }
+                    days=0;
+                    hashSet2.removeAll(hashSet2);
+                    break;
+                }
+            }
+        }
+        return result;
+    }
+
+    static public int solution3(int[] A, int S) {
+        int sum=0;
+        int numCounter=0;
+        int result=0;
+        for(int i=0;i<A.length;i++){
+            for(int j=i;j<A.length;j++){
+                sum+=A[j];
+                numCounter++;
+                if(sum/numCounter==S){
+                    result++;
+                    sum=0;
+                    numCounter=0;
+                }
+            }
+            sum=0;
+            numCounter=0;
+        }
+        return result;
+    }
+
+    static int planeSolution(String s, int[] x, int[] y) {
+        HashMap<Integer, Character> distances= new HashMap<>();
+        TreeSet<Integer> treeSet=new TreeSet<>();
+        int duplicateDistance=1000000000;
+        for(int i=0;i<s.length();i++){
+            int distance=0;
+            distance=x[i]*x[i]+y[i]*y[i];
+            if(distances.containsKey(distance)){
+                duplicateDistance=distance;
+            }
+            distances.put(distance,s.charAt(i));
+        }
+        System.out.println("duplicateDistance"+duplicateDistance);
+
+        for(int c:distances.keySet()){
+
+        }
+
+        int result=0;
+        for(int i:treeSet){
+            if(i<duplicateDistance){
+                result++;
+
+            }
+
+            System.out.println(i);
+            System.out.println(distances.get(i));
+
+
+        }
+        System.out.println(result);
+        return result;
+
 
     }
 
     static int knapsackLight(int value1, int weight1, int value2, int weight2, int maxW) {
-        if(weight1+weight2<=maxW){
-            return value1+value2;
-        } else if((weight1>maxW)&&(weight1<=maxW)){
+        if (weight1 + weight2 <= maxW) {
+            return value1 + value2;
+        } else if ((weight1 > maxW) && (weight1 <= maxW)) {
             return value2;
-        } else if((weight2>maxW)&&(weight2<=maxW)){
+        } else if ((weight2 > maxW) && (weight2 <= maxW)) {
             return value1;
-        } else if((weight1>weight2)&&(weight1<=maxW)&&value1>value2){
+        } else if ((weight1 > weight2) && (weight1 <= maxW) && value1 > value2) {
             return value1;
-        } else if((weight1<weight2)&&(weight2>maxW)&&(weight1<=maxW)){
+        } else if ((weight1 < weight2) && (weight2 > maxW) && (weight1 <= maxW)) {
             return value1;
-        } else if((weight2>weight1)&&(weight2<=maxW)&&value2>value1){
+        } else if ((weight2 > weight1) && (weight2 <= maxW) && value2 > value1) {
             return value2;
-        } else if((weight2<weight1)&&(weight1>maxW)&&(weight2<=maxW)) {
+        } else if ((weight2 < weight1) && (weight1 > maxW) && (weight2 <= maxW)) {
             return value2;
-        } else if((weight1<=maxW)&&(weight2<=maxW)&&value1>=value2){
+        } else if ((weight1 <= maxW) && (weight2 <= maxW) && value1 >= value2) {
             return value1;
-        } else if((weight1<=maxW)&&(weight2<=maxW)&&value2>=value1){
+        } else if ((weight1 <= maxW) && (weight2 <= maxW) && value2 >= value1) {
             return value2;
         }
         return 0;
     }
 
     static int growingPlant(int upSpeed, int downSpeed, int desiredHeight) {
-        int day=0;
-        int height=0;
-        while(height<desiredHeight){
+        int day = 0;
+        int height = 0;
+        while (height < desiredHeight) {
             day++;
-            height+=upSpeed;
-            if(height>=desiredHeight){
+            height += upSpeed;
+            if (height >= desiredHeight) {
                 return day;
             }
-            height-=downSpeed;
+            height -= downSpeed;
         }
         return day;
     }
 
     static int arrayMaxConsecutiveSum(int[] a, int k) {
-        HashSet<Integer> hashSet=new HashSet<>();
-        for(int i=0;i<a.length-k+1;i++){
-            int sum=0;
-            for(int j=i;j<k+i;j++){
-                sum+=a[j];
+        HashSet<Integer> hashSet = new HashSet<>();
+        for (int i = 0; i < a.length - k + 1; i++) {
+            int sum = 0;
+            for (int j = i; j < k + i; j++) {
+                sum += a[j];
             }
             hashSet.add(sum);
         }
