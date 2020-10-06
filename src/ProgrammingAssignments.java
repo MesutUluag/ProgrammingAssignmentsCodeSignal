@@ -100,53 +100,152 @@ public class ProgrammingAssignments {
 //        System.out.println(growingPlant(100,10,910));
 
 
-       System.out.println(knapsackLight(3,5,3,8,10));
+//       System.out.println(knapsackLight(3,5,3,8,10));
+
+//        String input="123aa1";
+//        System.out.println(longestDigitsPrefix(input));
+
+//        System.out.println(digitDegree(91));
+
+        System.out.println(bishopAndPawn("a5", "c3"));
 
     }
 
+
+    static boolean bishopAndPawn(String bishop, String pawn) {
+
+        HashSet<String> hashSet = new HashSet<>();
+        {
+            char[] chars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+            char firstChar = bishop.charAt(0);
+            int secondChar = Character.getNumericValue(bishop.charAt(1));
+            for(int i=0;i<chars.length;i++){
+                if(secondChar>9||firstChar>'h')
+                    break;
+                hashSet.add(firstChar+""+secondChar);
+                firstChar++;
+                secondChar++;
+            }
+            firstChar = bishop.charAt(0);
+            secondChar = Character.getNumericValue(bishop.charAt(1));
+            for(int i=0;i<chars.length;i++){
+                if(firstChar<'a'||secondChar<1)
+                    break;
+                hashSet.add(firstChar+""+secondChar);
+                firstChar--;
+                secondChar--;
+            }
+
+            firstChar = bishop.charAt(0);
+            secondChar = Character.getNumericValue(bishop.charAt(1));
+            for(int i=0;i<chars.length;i++){
+                if(firstChar<'a'||secondChar>9)
+                    break;
+                hashSet.add(firstChar+""+secondChar);
+                firstChar--;
+                secondChar++;
+            }
+
+            firstChar = bishop.charAt(0);
+            secondChar = Character.getNumericValue(bishop.charAt(1));
+            for(int i=0;i<chars.length;i++){
+                if(firstChar>'h'||secondChar<1)
+                    break;
+                hashSet.add(firstChar+""+secondChar);
+                firstChar++;
+                secondChar--;
+            }
+                        System.out.println(hashSet);
+            if (hashSet.contains(pawn)) {
+                return true;
+            } else {
+                return false;
+            }
+
+
+
+        }
+//        return false;
+    }
+
+
+    static int resultofDigitDegree = 0;
+
+    static int digitDegree(int n) {
+        String k = Integer.toString(n);
+        int sum = 0;
+        if (k.length() == 1) {
+            return 0;
+        }
+        for (int i = 0; i < k.length(); i++) {
+            sum += Character.getNumericValue(k.charAt(i));
+        }
+        resultofDigitDegree++;
+        String sum2 = Integer.toString(sum);
+        if (sum2.length() == 1) {
+            int result2 = resultofDigitDegree;
+            resultofDigitDegree = 0;
+            return result2;
+        } else {
+            return (digitDegree(sum));
+        }
+    }
+
+    static String longestDigitsPrefix(String inputString) {
+        String result = "";
+        for (int i = 0; i < inputString.length(); i++) {
+            if (Character.isDigit(inputString.charAt(i))) {
+                result += inputString.charAt(i);
+            } else {
+                return result;
+            }
+        }
+        return result;
+    }
+
     static int knapsackLight(int value1, int weight1, int value2, int weight2, int maxW) {
-        if(weight1+weight2<=maxW){
-            return value1+value2;
-        } else if((weight1>maxW)&&(weight1<=maxW)){
+        if (weight1 + weight2 <= maxW) {
+            return value1 + value2;
+        } else if ((weight1 > maxW) && (weight1 <= maxW)) {
             return value2;
-        } else if((weight2>maxW)&&(weight2<=maxW)){
+        } else if ((weight2 > maxW) && (weight2 <= maxW)) {
             return value1;
-        } else if((weight1>weight2)&&(weight1<=maxW)&&value1>value2){
+        } else if ((weight1 > weight2) && (weight1 <= maxW) && value1 > value2) {
             return value1;
-        } else if((weight1<weight2)&&(weight2>maxW)&&(weight1<=maxW)){
+        } else if ((weight1 < weight2) && (weight2 > maxW) && (weight1 <= maxW)) {
             return value1;
-        } else if((weight2>weight1)&&(weight2<=maxW)&&value2>value1){
+        } else if ((weight2 > weight1) && (weight2 <= maxW) && value2 > value1) {
             return value2;
-        } else if((weight2<weight1)&&(weight1>maxW)&&(weight2<=maxW)) {
+        } else if ((weight2 < weight1) && (weight1 > maxW) && (weight2 <= maxW)) {
             return value2;
-        } else if((weight1<=maxW)&&(weight2<=maxW)&&value1>=value2){
+        } else if ((weight1 <= maxW) && (weight2 <= maxW) && value1 >= value2) {
             return value1;
-        } else if((weight1<=maxW)&&(weight2<=maxW)&&value2>=value1){
+        } else if ((weight1 <= maxW) && (weight2 <= maxW) && value2 >= value1) {
             return value2;
         }
         return 0;
     }
 
     static int growingPlant(int upSpeed, int downSpeed, int desiredHeight) {
-        int day=0;
-        int height=0;
-        while(height<desiredHeight){
+        int day = 0;
+        int height = 0;
+        while (height < desiredHeight) {
             day++;
-            height+=upSpeed;
-            if(height>=desiredHeight){
+            height += upSpeed;
+            if (height >= desiredHeight) {
                 return day;
             }
-            height-=downSpeed;
+            height -= downSpeed;
         }
         return day;
     }
 
     static int arrayMaxConsecutiveSum(int[] a, int k) {
-        HashSet<Integer> hashSet=new HashSet<>();
-        for(int i=0;i<a.length-k+1;i++){
-            int sum=0;
-            for(int j=i;j<k+i;j++){
-                sum+=a[j];
+        HashSet<Integer> hashSet = new HashSet<>();
+        for (int i = 0; i < a.length - k + 1; i++) {
+            int sum = 0;
+            for (int j = i; j < k + i; j++) {
+                sum += a[j];
             }
             hashSet.add(sum);
         }
