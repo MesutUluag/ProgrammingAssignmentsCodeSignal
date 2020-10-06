@@ -218,34 +218,34 @@ public class ProgrammingAssignments {
             return value2;
         } else if ((weight2 < weight1) && (weight1 > maxW) && (weight2 <= maxW)) {
             return value2;
-        } else if ((weight1 <= maxW) && (weight2 <= maxW) && value1 >= value2) {
+        } else if((weight1<=maxW)&&(weight2<=maxW)&&value1>=value2){
             return value1;
-        } else if ((weight1 <= maxW) && (weight2 <= maxW) && value2 >= value1) {
+        } else if((weight1<=maxW)&&(weight2<=maxW)&&value2>=value1){
             return value2;
         }
         return 0;
     }
 
     static int growingPlant(int upSpeed, int downSpeed, int desiredHeight) {
-        int day = 0;
-        int height = 0;
-        while (height < desiredHeight) {
+        int day=0;
+        int height=0;
+        while(height<desiredHeight){
             day++;
-            height += upSpeed;
-            if (height >= desiredHeight) {
+            height+=upSpeed;
+            if(height>=desiredHeight){
                 return day;
             }
-            height -= downSpeed;
+            height-=downSpeed;
         }
         return day;
     }
 
     static int arrayMaxConsecutiveSum(int[] a, int k) {
-        HashSet<Integer> hashSet = new HashSet<>();
-        for (int i = 0; i < a.length - k + 1; i++) {
-            int sum = 0;
-            for (int j = i; j < k + i; j++) {
-                sum += a[j];
+        HashSet<Integer> hashSet=new HashSet<>();
+        for(int i=0;i<a.length-k+1;i++){
+            int sum=0;
+            for(int j=i;j<k+i;j++){
+                sum+=a[j];
             }
             hashSet.add(sum);
         }
