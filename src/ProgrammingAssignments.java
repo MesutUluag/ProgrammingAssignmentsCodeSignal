@@ -107,10 +107,37 @@ public class ProgrammingAssignments {
 
 //        System.out.println(digitDegree(91));
 
-        System.out.println(bishopAndPawn("a5", "c3"));
+//        System.out.println(bishopAndPawn("a5", "c3"));
+
+        System.out.println(isBeautifulString("aabbb"));
 
     }
 
+
+    static boolean isBeautifulString(String inputString) {
+        TreeMap<Character, Integer> treeMap = new TreeMap<>();
+        for (int i = 0; i < inputString.length(); i++) {
+            int counter = treeMap.get(inputString.charAt(i)) != null ? treeMap.get(inputString.charAt(i)) : 0;
+            counter++;
+            treeMap.put(inputString.charAt(i), counter);
+        }
+        char lastkey = treeMap.lastKey();
+        char firstkey = 'a';
+        for (int i = firstkey; i < lastkey + 1; i++) {
+            if (!treeMap.containsKey((char) i)) {
+                return false;
+            }
+        }
+        char previousKey = treeMap.firstKey();
+        for (char i : treeMap.keySet()) {
+            if (!(treeMap.get(previousKey) >= treeMap.get(i))) {
+                return false;
+            } else {
+                previousKey = i;
+            }
+        }
+        return true;
+    }
 
     static boolean bishopAndPawn(String bishop, String pawn) {
 
@@ -119,43 +146,43 @@ public class ProgrammingAssignments {
             char[] chars = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
             char firstChar = bishop.charAt(0);
             int secondChar = Character.getNumericValue(bishop.charAt(1));
-            for(int i=0;i<chars.length;i++){
-                if(secondChar>9||firstChar>'h')
+            for (int i = 0; i < chars.length; i++) {
+                if (secondChar > 9 || firstChar > 'h')
                     break;
-                hashSet.add(firstChar+""+secondChar);
+                hashSet.add(firstChar + "" + secondChar);
                 firstChar++;
                 secondChar++;
             }
             firstChar = bishop.charAt(0);
             secondChar = Character.getNumericValue(bishop.charAt(1));
-            for(int i=0;i<chars.length;i++){
-                if(firstChar<'a'||secondChar<1)
+            for (int i = 0; i < chars.length; i++) {
+                if (firstChar < 'a' || secondChar < 1)
                     break;
-                hashSet.add(firstChar+""+secondChar);
+                hashSet.add(firstChar + "" + secondChar);
                 firstChar--;
                 secondChar--;
             }
 
             firstChar = bishop.charAt(0);
             secondChar = Character.getNumericValue(bishop.charAt(1));
-            for(int i=0;i<chars.length;i++){
-                if(firstChar<'a'||secondChar>9)
+            for (int i = 0; i < chars.length; i++) {
+                if (firstChar < 'a' || secondChar > 9)
                     break;
-                hashSet.add(firstChar+""+secondChar);
+                hashSet.add(firstChar + "" + secondChar);
                 firstChar--;
                 secondChar++;
             }
 
             firstChar = bishop.charAt(0);
             secondChar = Character.getNumericValue(bishop.charAt(1));
-            for(int i=0;i<chars.length;i++){
-                if(firstChar>'h'||secondChar<1)
+            for (int i = 0; i < chars.length; i++) {
+                if (firstChar > 'h' || secondChar < 1)
                     break;
-                hashSet.add(firstChar+""+secondChar);
+                hashSet.add(firstChar + "" + secondChar);
                 firstChar++;
                 secondChar--;
             }
-                        System.out.println(hashSet);
+            System.out.println(hashSet);
             if (hashSet.contains(pawn)) {
                 return true;
             } else {
@@ -163,11 +190,9 @@ public class ProgrammingAssignments {
             }
 
 
-
         }
 //        return false;
     }
-
 
     static int resultofDigitDegree = 0;
 
@@ -218,34 +243,34 @@ public class ProgrammingAssignments {
             return value2;
         } else if ((weight2 < weight1) && (weight1 > maxW) && (weight2 <= maxW)) {
             return value2;
-        } else if((weight1<=maxW)&&(weight2<=maxW)&&value1>=value2){
+        } else if ((weight1 <= maxW) && (weight2 <= maxW) && value1 >= value2) {
             return value1;
-        } else if((weight1<=maxW)&&(weight2<=maxW)&&value2>=value1){
+        } else if ((weight1 <= maxW) && (weight2 <= maxW) && value2 >= value1) {
             return value2;
         }
         return 0;
     }
 
     static int growingPlant(int upSpeed, int downSpeed, int desiredHeight) {
-        int day=0;
-        int height=0;
-        while(height<desiredHeight){
+        int day = 0;
+        int height = 0;
+        while (height < desiredHeight) {
             day++;
-            height+=upSpeed;
-            if(height>=desiredHeight){
+            height += upSpeed;
+            if (height >= desiredHeight) {
                 return day;
             }
-            height-=downSpeed;
+            height -= downSpeed;
         }
         return day;
     }
 
     static int arrayMaxConsecutiveSum(int[] a, int k) {
-        HashSet<Integer> hashSet=new HashSet<>();
-        for(int i=0;i<a.length-k+1;i++){
-            int sum=0;
-            for(int j=i;j<k+i;j++){
-                sum+=a[j];
+        HashSet<Integer> hashSet = new HashSet<>();
+        for (int i = 0; i < a.length - k + 1; i++) {
+            int sum = 0;
+            for (int j = i; j < k + i; j++) {
+                sum += a[j];
             }
             hashSet.add(sum);
         }
