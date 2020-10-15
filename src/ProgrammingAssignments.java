@@ -109,10 +109,47 @@ public class ProgrammingAssignments {
 
 //        System.out.println(bishopAndPawn("a5", "c3"));
 
-        System.out.println(isBeautifulString("aabbb"));
+//        System.out.println(isBeautifulString("aabbb"));
 
+//        System.out.println(findEmailDomain("admin@mailserver2.ru"));
+
+        System.out.println(buildPalindrome("abcabc"));
     }
 
+
+    static String buildPalindrome(String st) {
+        String result = "";
+        if(st.length()==1){
+            result+=st;
+            return result;
+        }
+        else if((st.charAt(0) != st.charAt(st.length() - 1))&&(st.length()<=2)){
+            result += st.charAt(0) + buildPalindrome(st.substring(1, st.length())) + st.charAt(0);
+            return result;
+        }
+        else if ((st.charAt(0) != st.charAt(st.length() - 1))&&st.length()>1) {
+            result += st.charAt(0) + buildPalindrome(st.substring(1, st.length())) + st.charAt(0);
+            return result;
+        }
+        else if (st.charAt(0) == st.charAt(st.length() - 1)&&(st.length()>3)){
+             result+=st.charAt(0) + buildPalindrome(st.substring(1, st.length() - 1))+ st.charAt(st.length()-1);
+            return result;
+        }
+        else{
+            result=st;
+            return result;
+        }
+    }
+
+    static String findEmailDomain(String address) {
+        String result = "";
+        for (int i = 0; i < address.length(); i++) {
+            if (address.charAt(i) == '@') {
+                result = address.substring(i + 1, address.length());
+            }
+        }
+        return result;
+    }
 
     static boolean isBeautifulString(String inputString) {
         TreeMap<Character, Integer> treeMap = new TreeMap<>();
