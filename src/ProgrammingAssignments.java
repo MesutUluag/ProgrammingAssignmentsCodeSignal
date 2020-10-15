@@ -118,27 +118,29 @@ public class ProgrammingAssignments {
 
 
     static String buildPalindrome(String st) {
-        String result = "";
-        if(st.length()==1){
-            result+=st;
-            return result;
+        int counter = 0;
+        String newString = "";
+        for (int i = 0; i < st.length(); i++) {
+            if (!isPalindrome(st)) {
+                st = addCharToString(st, st.charAt(i), st.length() - i);
+            } else {
+                return st;
+            }
         }
-        else if((st.charAt(0) != st.charAt(st.length() - 1))&&(st.length()<=2)){
-            result += st.charAt(0) + buildPalindrome(st.substring(1, st.length())) + st.charAt(0);
-            return result;
+        return st;
+    }
+    static boolean isPalindrome(String a){
+        for(int i=0;i<a.length()/2;i++){
+            if(a.charAt(i)!=a.charAt(a.length()-i-1)){
+                return false;
+            }
         }
-        else if ((st.charAt(0) != st.charAt(st.length() - 1))&&st.length()>1) {
-            result += st.charAt(0) + buildPalindrome(st.substring(1, st.length())) + st.charAt(0);
-            return result;
-        }
-        else if (st.charAt(0) == st.charAt(st.length() - 1)&&(st.length()>3)){
-             result+=st.charAt(0) + buildPalindrome(st.substring(1, st.length() - 1))+ st.charAt(st.length()-1);
-            return result;
-        }
-        else{
-            result=st;
-            return result;
-        }
+        return true;
+    }
+    public static String addCharToString(String str, char c, int pos) {
+        StringBuilder stringBuilder = new StringBuilder(str);
+        stringBuilder.insert(pos, c);
+        return stringBuilder.toString();
     }
 
     static String findEmailDomain(String address) {
