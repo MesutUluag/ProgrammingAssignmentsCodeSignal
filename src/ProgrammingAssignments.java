@@ -113,10 +113,47 @@ public class ProgrammingAssignments {
 
 //        System.out.println(findEmailDomain("admin@mailserver2.ru"));
 
-        System.out.println(buildPalindrome("abcabc"));
+//        System.out.println(buildPalindrome("abcabc"));
+
+//        int []x={2, 3, 5, 2};
+//        int k=3;
+//        System.out.println(electionsWinners(x,k));
+
+        System.out.println(isMAC48Address("not a MAC-48 address"));
+
+    }
+
+    static boolean isMAC48Address(String a) {
+        String Pattern="[0-9][0-9]|[0-9][A-F]|[A-F][0-9]|[A-F][A-F]";
+        String [] ips= a.split("\\-");
+        if(a.charAt(a.length()-1)=='-'){
+            return false;
+        }
+        for(String ip:ips){
+            if(!ip.matches(Pattern)){
+                return false;
+            }
+        }
+        return true;
     }
 
 
+    static int electionsWinners(int[] votes, int k) {
+        int []sorted=Arrays.stream(votes).sorted().toArray();
+        int result=0;
+        for(int i=0;i<sorted.length;i++){
+            if((sorted[i]+k)>sorted[sorted.length-1]){
+                result++;
+            }
+        }
+        if(k==0) {
+            if(sorted[sorted.length-1]==sorted[sorted.length-2]){
+                return 0;
+            }else
+                return 1;
+        }
+        return result;
+    }
     static String buildPalindrome(String st) {
         int counter = 0;
         String newString = "";
@@ -227,10 +264,7 @@ public class ProgrammingAssignments {
             } else {
                 return false;
             }
-
-
         }
-//        return false;
     }
 
     static int resultofDigitDegree = 0;
