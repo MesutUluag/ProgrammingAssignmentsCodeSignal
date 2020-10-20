@@ -119,41 +119,110 @@ public class ProgrammingAssignments {
 //        int k=3;
 //        System.out.println(electionsWinners(x,k));
 
-        System.out.println(isMAC48Address("not a MAC-48 address"));
+//        System.out.println(isMAC48Address("not a MAC-48 address"));
 
+//        System.out.println(isDigit('c'));
+
+//        System.out.println(lineEncoding("aabbbc"));
+
+        System.out.println(chessKnight("g6"));
+    }
+
+    static int chessKnight(String cell) {
+        int number=Character.getNumericValue(cell.charAt(1));
+        char c=cell.charAt(0);
+        int counter=0;
+        if((number+1<=8)&&(c+2<=(int)'h')){
+            counter++;
+        }
+        if((number+1<=8)&&(c-2>=(int)'a')){
+            counter++;
+        }
+        if((number-1>0)&&(c+2<=(int)'h')){
+            counter++;
+        }
+        if((number-1>0)&&(c-2>=(int)'a')){
+            counter++;
+        }
+        if((number+2<=8)&&(c+1<=(int)'h')){
+            counter++;
+        }
+        if((number+2<=8)&&(c-1>=(int)'a')){
+            counter++;
+        }
+        if((number-2>0)&&(c-1>=(int)'a')){
+            counter++;
+        }
+        if((number-2>0)&&(c+1<=(int)'h')){
+            counter++;
+        }
+        return counter;
+    }
+
+    static String lineEncoding(String s) {
+        String result = "";
+        int counter = 1;
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(i) == s.charAt(i + 1)) {
+                counter++;
+                if (i + 1 == s.length() - 1) {
+                    if (counter > 1) {
+                        result += counter + "" + s.charAt(i + 1);
+                    } else {
+                        result += s.charAt(i);
+                    }
+                }
+            } else {
+                if (counter > 1) {
+                    result += counter + "" + s.charAt(i - 1);
+                } else {
+                    result += s.charAt(i);
+                }
+                counter = 1;
+                if (i + 1 == s.length() - 1) {
+                    result += s.charAt(i + 1);
+                }
+            }
+
+    }
+        return result;
+}
+
+    static boolean isDigit(char symbol) {
+        return Character.isDigit(symbol);
     }
 
     static boolean isMAC48Address(String a) {
-        String Pattern="[0-9][0-9]|[0-9][A-F]|[A-F][0-9]|[A-F][A-F]";
-        String [] ips= a.split("\\-");
-        if(a.charAt(a.length()-1)=='-'){
+        String Pattern = "[0-9][0-9]|[0-9][A-F]|[A-F][0-9]|[A-F][A-F]";
+        String[] ips = a.split("\\-");
+        if (a.charAt(a.length() - 1) == '-') {
             return false;
         }
-        for(String ip:ips){
-            if(!ip.matches(Pattern)){
+        for (String ip : ips) {
+            if (!ip.matches(Pattern)) {
                 return false;
             }
         }
         return true;
     }
 
-
     static int electionsWinners(int[] votes, int k) {
-        int []sorted=Arrays.stream(votes).sorted().toArray();
-        int result=0;
-        for(int i=0;i<sorted.length;i++){
-            if((sorted[i]+k)>sorted[sorted.length-1]){
+        int[] sorted = Arrays.stream(votes).sorted().toArray();
+        int result = 0;
+        for (int i = 0; i < sorted.length; i++) {
+            if ((sorted[i] + k) > sorted[sorted.length - 1]) {
                 result++;
             }
         }
-        if(k==0) {
-            if(sorted[sorted.length-1]==sorted[sorted.length-2]){
+        if (k == 0) {
+            if (sorted[sorted.length - 1] == sorted[sorted.length - 2]) {
                 return 0;
-            }else
+            } else
                 return 1;
         }
         return result;
     }
+
     static String buildPalindrome(String st) {
         int counter = 0;
         String newString = "";
@@ -166,14 +235,16 @@ public class ProgrammingAssignments {
         }
         return st;
     }
-    static boolean isPalindrome(String a){
-        for(int i=0;i<a.length()/2;i++){
-            if(a.charAt(i)!=a.charAt(a.length()-i-1)){
+
+    static boolean isPalindrome(String a) {
+        for (int i = 0; i < a.length() / 2; i++) {
+            if (a.charAt(i) != a.charAt(a.length() - i - 1)) {
                 return false;
             }
         }
         return true;
     }
+
     public static String addCharToString(String str, char c, int pos) {
         StringBuilder stringBuilder = new StringBuilder(str);
         stringBuilder.insert(pos, c);
@@ -352,7 +423,6 @@ public class ProgrammingAssignments {
 
     static int differentSymbolsNaive(String s) {
         HashSet<Character> hashSet = new HashSet<>();
-
         for (int i = 0; i < s.length(); i++) {
             hashSet.add(s.charAt(i));
         }
@@ -391,7 +461,6 @@ public class ProgrammingAssignments {
     }
 
     static boolean stringsRearrangement(String[] a) {
-
         for (int i = 0; i < a.length; i++) {
 
             for (int j = 0; j < a.length - 1; j++) {
@@ -407,7 +476,6 @@ public class ProgrammingAssignments {
                 temp = a[j];
                 a[j] = a[j + 1];
                 a[j + 1] = temp;
-//                System.out.println(a[j]);
             }
             for (String k : a)
                 System.out.println(k);
@@ -446,9 +514,7 @@ public class ProgrammingAssignments {
     }
 
     static int circleOfNumbers(int n, int firstNumber) {
-
         return (firstNumber + n / 2) % n;
-
     }
 
     static boolean chessBoardCellColor(String cell1, String cell2) {
@@ -476,7 +542,6 @@ public class ProgrammingAssignments {
 
     static String alphabeticShift(String a) {
         char[] arrayString = a.toCharArray();
-
         for (int i = 0; i < a.length(); i++) {
             int x = a.charAt(i);
             if (a.charAt(i) == 'z') {
@@ -501,8 +566,6 @@ public class ProgrammingAssignments {
 
     static boolean evenDigitsOnly(int n) {
         char[] nChar = (Integer.toString(n)).toCharArray();
-
-
         for (int i = 0; i < nChar.length; i++) {
             if ((int) nChar[i] % 2 != 0) {
                 return false;
@@ -518,8 +581,6 @@ public class ProgrammingAssignments {
                 a[i] = substitutionElem;
         }
         return a;
-
-
     }
 
     static int[][] minesweeper(boolean[][] a) {
@@ -967,7 +1028,6 @@ public class ProgrammingAssignments {
         if (firstSum == secondSum)
             return true;
         return false;
-
     }
 
     static int makeArrayConsecutive2(int[] statues) {
@@ -1012,11 +1072,8 @@ public class ProgrammingAssignments {
         Arrays.sort(a);
         HashSet<Integer> array = new HashSet<>();
         Arrays.stream(a).forEach(x -> array.add(x));
-
-        int result = 0;
         int jumplength = 1;
         int firstindex = 0;
-
         for (int j = 0; j < a[a.length - 1]; j++) {
             for (int i = 0; i < a[a.length - 1]; i++) {
                 if (array.contains(firstindex + jumplength)) {
