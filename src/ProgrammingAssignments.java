@@ -125,7 +125,34 @@ public class ProgrammingAssignments {
 
 //        System.out.println(lineEncoding("aabbbc"));
 
-        System.out.println(chessKnight("g6"));
+//        System.out.println(chessKnight("g6"));
+
+//        System.out.println(deleteDigit(222250));
+
+            System.out.println(longestWord("ABCd"));
+    }
+
+    static String longestWord(String s) {
+        s=s.replaceAll("[^a-zA-Z]+", " ");
+        String[]words=s.split(" ");
+        String max=words[0];
+        for (String word:words){
+            if(word.length()>max.length()){
+                max=word;
+            }
+        }
+        return max;
+    }
+
+    static int deleteDigit(int n) {
+        String s=n+"";
+        int max=0;
+        for(int i=0;i<s.length();i++){
+            StringBuilder stringBuilder= new StringBuilder(s);
+            String newString= stringBuilder.deleteCharAt(stringBuilder.indexOf(s.charAt(i)+"")).toString();
+            max=Math.max(max,Integer.parseInt(newString));
+        }
+        return max;
     }
 
     static int chessKnight(String cell) {
