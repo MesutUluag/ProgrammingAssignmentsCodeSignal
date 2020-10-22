@@ -1,4 +1,6 @@
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProgrammingAssignments {
     public static void main(String args[]) {
@@ -129,7 +131,30 @@ public class ProgrammingAssignments {
 
 //        System.out.println(deleteDigit(222250));
 
-            System.out.println(longestWord("ABCd"));
+//            System.out.println(longestWord("ABCd"));
+
+//        System.out.println(validTime("09:51"));
+
+        System.out.println(sumUpNumbers("there are some (12) digits 5566 in this 770 string 239"));
+    }
+
+    static int sumUpNumbers(String s) {
+        int sum=0;
+        Pattern p= Pattern.compile("\\d+");
+        Matcher m=p.matcher(s);
+        while(m.find()){
+            sum+=Integer.parseInt(m.group());
+        }
+        return sum;
+    }
+
+    static boolean validTime(String s) {
+        String Pattern="[0-2][0-3]:[0-5][0-9]|[0-1][0-9]:[0-5][0-9]";
+        if(s.matches(Pattern)){
+            return true;
+        } else{
+            return false;
+        }
     }
 
     static String longestWord(String s) {
