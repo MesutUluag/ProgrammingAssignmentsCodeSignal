@@ -6,27 +6,124 @@ public class ProgrammingAssignments2 {
 //        String[] s= {"a(1)","a(6)","a","a","a","a","a","a","a","a","a","a"};
 //        System.out.println(fileNaming(s));
 
-        System.out.println(messageFromBinaryCode("010010000110010101101100011011000110111100100001"));
+//        System.out.println(messageFromBinaryCode("010010000110010101101100011011000110111100100001"));
 
-        String s= "01001000";
-        int AsciiCode = Integer.valueOf(s, 2);
-        char c= (char) AsciiCode;
-        System.out.println(c);
 
+        System.out.println(spiralNumbers(5));
 
     }
 
-    public static String messageFromBinaryCode(String code) {
-        String result;
-        StringBuilder stringBuilder = new StringBuilder();
-        int counter=0;
-        while(counter<code.length()) {
-            int AsciiCode = Integer.valueOf(code.substring(counter, counter + 8), 2);
-            stringBuilder.append(new Character((char)AsciiCode).toString());
-            counter+=8;
+    public static int number=1;
+    public static int[][] spiralNumbers(int n) {
+        int[][] result= new int[n][n];
+        goRight(result,0,0, n);
+        return result;
+    }
+
+    public static int[][] goRight(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
+        if(currentMatrix[iPosition][jPosition+1]!=0){
+            return currentMatrix;
         }
-        return stringBuilder.toString();
+        for(int j=jPosition; j<dimension; j++){
+
+            if(currentMatrix[iPosition][j]==0) {
+                currentMatrix[iPosition][j] = number;
+                number++;
+                jPosition = j;
+            } else{
+                goDown(currentMatrix, iPosition, jPosition, dimension);
+            }
+        }
+        goDown(currentMatrix, iPosition, jPosition, dimension);
+        return currentMatrix;
     }
+
+    public static int[][] goDown(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
+
+        if(currentMatrix[iPosition+1][jPosition]!=0){
+            return currentMatrix;
+        }
+        iPosition++;
+        for(int i=iPosition; i<dimension; i++){
+            if(currentMatrix[i][jPosition]==0) {
+                currentMatrix[i][jPosition] = number;
+                number++;
+                iPosition = i;
+            } else{
+                goLeft(currentMatrix, iPosition, jPosition, dimension);
+            }
+        }
+        goLeft(currentMatrix, iPosition, jPosition, dimension);
+        return currentMatrix;
+    }
+
+    public static int[][] goLeft(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
+        if(currentMatrix[iPosition][jPosition-1]!=0){
+            return currentMatrix;
+        }
+        jPosition--;
+
+        for(int j=jPosition; j>=0; j--){
+            if(currentMatrix[iPosition][j]==0) {
+                currentMatrix[iPosition][j] = number;
+                number++;
+                jPosition = j;
+            } else{
+                goUp(currentMatrix, iPosition, jPosition, dimension);
+            }
+        }
+        goUp(currentMatrix, iPosition, jPosition, dimension);
+        return currentMatrix;
+    }
+
+    public static int[][] goUp(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
+            if (currentMatrix[iPosition - 1][jPosition] != 0) {
+                return currentMatrix;
+            }
+
+        iPosition--;
+        for(int i=iPosition; i>=0; i--){
+            if(currentMatrix[i][jPosition]==0) {
+                currentMatrix[i][jPosition] = number;
+                number++;
+                iPosition = i;
+            } else{
+                goRight(currentMatrix, iPosition, jPosition, dimension);
+            }
+        }
+        goRight(currentMatrix, iPosition, jPosition, dimension);
+        return currentMatrix;
+    }
+
+
+
+//    public static int[][] spiralNumbers(int n) {
+//        int[][] result= new int[n][n];
+//        int number=1;
+//        for(int i=0;i<n;i++){
+//            for(int j=0;j<n;j++){
+//                result[i][j]=number;
+//                number++;
+//                System.out.print(result[i][j]);
+//            }
+//            System.out.println();
+//        }
+//
+//        return result;
+//    }
+
+
+//    public static String messageFromBinaryCode(String code) {
+//        String result;
+//        StringBuilder stringBuilder = new StringBuilder();
+//        int counter=0;
+//        while(counter<code.length()) {
+//            int AsciiCode = Integer.valueOf(code.substring(counter, counter + 8), 2);
+//            stringBuilder.append(new Character((char)AsciiCode).toString());
+//            counter+=8;
+//        }
+//        return stringBuilder.toString();
+//    }
 
 //    public static Map<String, Integer> namesMap = new LinkedHashMap<>();
 //    static String[] fileNaming(String[] names) {
