@@ -3,57 +3,78 @@ import java.util.*;
 public class ProgrammingAssignments2 {
     public static void main(String args[]) {
 //        System.out.println(digitsProduct(450));  //product=12 digitsProduct(product) = 26
-        String[] s= {"a(1)","a(6)","a","a","a","a","a","a","a","a","a","a"};
-        System.out.println(fileNaming(s));
+//        String[] s= {"a(1)","a(6)","a","a","a","a","a","a","a","a","a","a"};
+//        System.out.println(fileNaming(s));
+
+        System.out.println(messageFromBinaryCode("010010000110010101101100011011000110111100100001"));
+
+        String s= "01001000";
+        int AsciiCode = Integer.valueOf(s, 2);
+        char c= (char) AsciiCode;
+        System.out.println(c);
+
+
     }
 
-    public static Map<String, Integer> namesMap = new LinkedHashMap<>();
-    static String[] fileNaming(String[] names) {
-        for(String name : names){
-            namesMap.put(fileNamingRecursive(namesMap, name), 1);
-        }
-        int i=0;
-        for(String s: namesMap.keySet()){
-            names[i] =s;
-            i++;
-        }
-        Arrays.stream(names).forEach(s -> System.out.println(s));
-        namesMap.clear();
-        return names;
-    }
-
-    static public String fileNamingRecursive(Map<String, Integer> namesMap, String name){
-        if(namesMap.containsKey(name)){
-            StringBuilder stringBuilder = new StringBuilder(name);
-            int counter= namesMap.get(name);
-            String s= "(" + counter + ""+ ")";
-            stringBuilder.append(s);
-            if(namesMap.containsKey(stringBuilder.toString())){
-                return recursiveControl(namesMap, stringBuilder.toString());
-            } else {
-                return stringBuilder.toString();
-            }
-        } else {
-            return name;
-        }
-    }
-        public static int value = 1;
-    static public String recursiveControl(Map<String, Integer> namesMap, String name){
-        String actualString = name;
-        String lastName= actualString.substring(0, actualString.length()-3);
-        StringBuilder stringBuilder = new StringBuilder(lastName);
-        value++;
-        String s= "(" + value + ""+ ")";
-        stringBuilder.append(s);
-        if(namesMap.containsKey(stringBuilder.toString())){
-            recursiveControl(namesMap, name);
-        } else {
-            value=1;
-            namesMap.put(stringBuilder.toString(), 1);
-            return stringBuilder.toString();
+    public static String messageFromBinaryCode(String code) {
+        String result;
+        StringBuilder stringBuilder = new StringBuilder();
+        int counter=0;
+        while(counter<code.length()) {
+            int AsciiCode = Integer.valueOf(code.substring(counter, counter + 8), 2);
+            stringBuilder.append(new Character((char)AsciiCode).toString());
+            counter+=8;
         }
         return stringBuilder.toString();
     }
+
+//    public static Map<String, Integer> namesMap = new LinkedHashMap<>();
+//    static String[] fileNaming(String[] names) {
+//        for(String name : names){
+//            namesMap.put(fileNamingRecursive(namesMap, name), 1);
+//        }
+//        int i=0;
+//        for(String s: namesMap.keySet()){
+//            names[i] =s;
+//            i++;
+//        }
+//        Arrays.stream(names).forEach(s -> System.out.println(s));
+//        namesMap.clear();
+//        return names;
+//    }
+
+//    static public String fileNamingRecursive(Map<String, Integer> namesMap, String name){
+//        if(namesMap.containsKey(name)){
+//            StringBuilder stringBuilder = new StringBuilder(name);
+//            int counter= namesMap.get(name);
+//            String s= "(" + counter + ""+ ")";
+//            stringBuilder.append(s);
+//            if(namesMap.containsKey(stringBuilder.toString())){
+//                return recursiveControl(namesMap, stringBuilder.toString());
+//            } else {
+//                return stringBuilder.toString();
+//            }
+//        } else {
+//            return name;
+//        }
+//    }
+//        public static int value = 1;
+//    static public String recursiveControl(Map<String, Integer> namesMap, String name){
+//        String actualString = name;
+//        String lastName= actualString.substring(0, actualString.length()-3);
+//        StringBuilder stringBuilder = new StringBuilder(lastName);
+//        value++;
+//        String s= "(" + value + ""+ ")";
+//        stringBuilder.append(s);
+//        if(namesMap.containsKey(stringBuilder.toString())){
+//            recursiveControl(namesMap, name);
+//        } else {
+//            value=1;
+//            namesMap.put(stringBuilder.toString(), 1);
+//            return stringBuilder.toString();
+//        }
+//        return stringBuilder.toString();
+//    }
 
 
 
