@@ -9,92 +9,200 @@ public class ProgrammingAssignments2 {
 //        System.out.println(messageFromBinaryCode("010010000110010101101100011011000110111100100001"));
 
 
-        System.out.println(spiralNumbers(5));
+//        System.out.println(spiralNumbers(5));
+
+        int[][] grid = {{1,3,2,5,4,6,9,8,7},
+                        {4,6,5,8,7,9,3,2,1},
+                        {7,9,8,2,1,3,6,5,4},
+                        {9,2,1,4,3,5,8,7,6},
+                        {3,5,4,7,6,8,2,1,9},
+                        {6,8,7,1,9,2,5,4,3},
+                        {5,7,6,9,8,1,4,3,2},
+                        {2,4,3,6,5,7,1,9,8},
+                        {8,1,9,3,2,4,7,6,5}};
+
+
+        System.out.println(sudoku(grid));
 
     }
 
-    public static int number=1;
-    public static int[][] spiralNumbers(int n) {
-        int[][] result= new int[n][n];
-        goRight(result,0,0, n);
-        return result;
-    }
-
-    public static int[][] goRight(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
-        if(currentMatrix[iPosition][jPosition+1]!=0){
-            return currentMatrix;
+    public static boolean sudoku(int[][] grid) {
+        HashSet<Integer> numbers= new HashSet<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
+        if(!sumLeftToRight(grid)){
+            return false;
         }
-        for(int j=jPosition; j<dimension; j++){
-
-            if(currentMatrix[iPosition][j]==0) {
-                currentMatrix[iPosition][j] = number;
-                number++;
-                jPosition = j;
-            } else{
-                goDown(currentMatrix, iPosition, jPosition, dimension);
+        if(!sumTopToBottom(grid)){
+            return false;
+        }
+        if(!controlBoxes(grid))
+        {
+            return false;
+        }
+        return true;
+    }
+    public static boolean sumLeftToRight(int[][] grid){
+        for(int i=0;i<9;i++){
+            int sum=0;
+            HashSet<Integer> numbers= new HashSet<>();
+            for(int j=0;j<9;j++){
+                if(!numbers.contains(grid[i][j])) {
+                    numbers.add(grid[i][j]);
+                    sum += grid[i][j];
+                } else{
+                    return false;
+                }
+            }
+            if(sum!=45){
+                return false;
             }
         }
-        goDown(currentMatrix, iPosition, jPosition, dimension);
-        return currentMatrix;
+        return true;
     }
-
-    public static int[][] goDown(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
-
-        if(currentMatrix[iPosition+1][jPosition]!=0){
-            return currentMatrix;
-        }
-        iPosition++;
-        for(int i=iPosition; i<dimension; i++){
-            if(currentMatrix[i][jPosition]==0) {
-                currentMatrix[i][jPosition] = number;
-                number++;
-                iPosition = i;
-            } else{
-                goLeft(currentMatrix, iPosition, jPosition, dimension);
+    public static boolean sumTopToBottom(int[][] grid){
+        for(int j=0;j<9;j++){
+            int sum=0;
+            HashSet<Integer> numbers= new HashSet<>();
+            for(int i=0;i<9;i++){
+                if(!numbers.contains(grid[i][j])) {
+                    numbers.add(grid[i][j]);
+                    sum += grid[i][j];
+                } else{
+                    return false;
+                }
+            }
+            if(sum!=45){
+                return false;
             }
         }
-        goLeft(currentMatrix, iPosition, jPosition, dimension);
-        return currentMatrix;
+        return true;
     }
 
-    public static int[][] goLeft(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
-        if(currentMatrix[iPosition][jPosition-1]!=0){
-            return currentMatrix;
-        }
-        jPosition--;
-
-        for(int j=jPosition; j>=0; j--){
-            if(currentMatrix[iPosition][j]==0) {
-                currentMatrix[iPosition][j] = number;
-                number++;
-                jPosition = j;
-            } else{
-                goUp(currentMatrix, iPosition, jPosition, dimension);
+    public static boolean controlBoxes(int[][] grid){
+        int k=0;
+        int l=0;
+        while (l<9) {
+            k=0;
+            while (k < 9) {
+                int sum = 0;
+                for (int i = l; i < 3+ l; i++) {
+                    for (int j = k; j < 3 + k; j++) {
+                        sum += grid[i][j];
+                    }
+                }
+                if (sum != 45) {
+                    return false;
+                }
+                k += 3;
             }
+            l+=3;
         }
-        goUp(currentMatrix, iPosition, jPosition, dimension);
-        return currentMatrix;
+        return true;
     }
 
-    public static int[][] goUp(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
-            if (currentMatrix[iPosition - 1][jPosition] != 0) {
-                return currentMatrix;
-            }
 
-        iPosition--;
-        for(int i=iPosition; i>=0; i--){
-            if(currentMatrix[i][jPosition]==0) {
-                currentMatrix[i][jPosition] = number;
-                number++;
-                iPosition = i;
-            } else{
-                goRight(currentMatrix, iPosition, jPosition, dimension);
+
+
+    public static boolean controlBox(int[][] grid){
+        int sum=0;
+        for(int i=0;i<3;i++) {
+            for(int j=0;j<9;j++) {
+                sum += grid[i][j];
             }
         }
-        goRight(currentMatrix, iPosition, jPosition, dimension);
-        return currentMatrix;
+        return true;
     }
 
+
+
+
+
+
+
+
+
+
+
+//    public static int number=1;
+//    public static int[][] spiralNumbers(int n) {
+//        int[][] result= new int[n][n];
+//        goRight(result,0,0, n);
+//        return result;
+//    }
+//
+//    public static int[][] goRight(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
+//        if(currentMatrix[iPosition][jPosition+1]!=0){
+//            return currentMatrix;
+//        }
+//        for(int j=jPosition; j<dimension; j++){
+//
+//            if(currentMatrix[iPosition][j]==0) {
+//                currentMatrix[iPosition][j] = number;
+//                number++;
+//                jPosition = j;
+//            } else{
+//                goDown(currentMatrix, iPosition, jPosition, dimension);
+//            }
+//        }
+//        goDown(currentMatrix, iPosition, jPosition, dimension);
+//        return currentMatrix;
+//    }
+//
+//    public static int[][] goDown(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
+//
+//        if(currentMatrix[iPosition+1][jPosition]!=0){
+//            return currentMatrix;
+//        }
+//        iPosition++;
+//        for(int i=iPosition; i<dimension; i++){
+//            if(currentMatrix[i][jPosition]==0) {
+//                currentMatrix[i][jPosition] = number;
+//                number++;
+//                iPosition = i;
+//            } else{
+//                goLeft(currentMatrix, iPosition, jPosition, dimension);
+//            }
+//        }
+//        goLeft(currentMatrix, iPosition, jPosition, dimension);
+//        return currentMatrix;
+//    }
+//
+//    public static int[][] goLeft(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
+//        if(currentMatrix[iPosition][jPosition-1]!=0){
+//            return currentMatrix;
+//        }
+//        jPosition--;
+//
+//        for(int j=jPosition; j>=0; j--){
+//            if(currentMatrix[iPosition][j]==0) {
+//                currentMatrix[iPosition][j] = number;
+//                number++;
+//                jPosition = j;
+//            } else{
+//                goUp(currentMatrix, iPosition, jPosition, dimension);
+//            }
+//        }
+//        goUp(currentMatrix, iPosition, jPosition, dimension);
+//        return currentMatrix;
+//    }
+//
+//    public static int[][] goUp(int[][] currentMatrix, int iPosition, int jPosition,int dimension){
+//            if (currentMatrix[iPosition - 1][jPosition] != 0) {
+//                return currentMatrix;
+//            }
+//
+//        iPosition--;
+//        for(int i=iPosition; i>=0; i--){
+//            if(currentMatrix[i][jPosition]==0) {
+//                currentMatrix[i][jPosition] = number;
+//                number++;
+//                iPosition = i;
+//            } else{
+//                goRight(currentMatrix, iPosition, jPosition, dimension);
+//            }
+//        }
+//        goRight(currentMatrix, iPosition, jPosition, dimension);
+//        return currentMatrix;
+//    }
 
 
 //    public static int[][] spiralNumbers(int n) {
@@ -174,21 +282,6 @@ public class ProgrammingAssignments2 {
 //    }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     static int digitsProduct(int product) {
         if (product == 0) return 10;
         else if (product < 10) return product;
@@ -198,11 +291,11 @@ public class ProgrammingAssignments2 {
             int orig = product;
             for (int i = 9; i > 1; i--) {
                 if (product % i == 0) {
-                    int nexDigit=product / i;
-                    nexDigit=digitsProduct(nexDigit);
-                    if(nexDigit==-1) return -1;
-                    smallPos = smallPos * 10 + nexDigit ;
-                    product=i;
+                    int nexDigit = product / i;
+                    nexDigit = digitsProduct(nexDigit);
+                    if (nexDigit == -1) return -1;
+                    smallPos = smallPos * 10 + nexDigit;
+                    product = i;
                     break;
                 }
             }
@@ -210,7 +303,6 @@ public class ProgrammingAssignments2 {
         }
         return smallPos * 10 + product;
     }
-
 
 
 }
