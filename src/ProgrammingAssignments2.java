@@ -11,20 +11,76 @@ public class ProgrammingAssignments2 {
 
 //        System.out.println(spiralNumbers(5));
 
-        int[][] grid = {{1,3,2,5,4,6,9,8,7},
-                        {4,6,5,8,7,9,3,2,1},
-                        {7,9,8,2,1,3,6,5,4},
-                        {9,2,1,4,3,5,8,7,6},
-                        {3,5,4,7,6,8,2,1,9},
-                        {6,8,7,1,9,2,5,4,3},
-                        {5,7,6,9,8,1,4,3,2},
-                        {2,4,3,6,5,7,1,9,8},
-                        {8,1,9,3,2,4,7,6,5}};
+//        int[][] grid = {{1,3,2,5,4,6,9,8,7},
+//                        {4,6,5,8,7,9,3,2,1},
+//                        {7,9,8,2,1,3,6,5,4},
+//                        {9,2,1,4,3,5,8,7,6},
+//                        {3,5,4,7,6,8,2,1,9},
+//                        {6,8,7,1,9,2,5,4,3},
+//                        {5,7,6,9,8,1,4,3,2},
+//                        {2,4,3,6,5,7,1,9,8},
+//                        {8,1,9,3,2,4,7,6,5}};
+//
+//
+//        System.out.println(sudoku(grid));
 
+//        double[] prices= {10, 95, 70};
+//        String [] notes = {"10.0% higher than in-store",
+//                           "5.0% lower than in-store",
+//                           "Same as in-store"};
+//        int x= 5;
+        double[] prices = {2};
+        String[] notes = {"100.0% higher than in-store"};
+        int x = 9;
 
-        System.out.println(sudoku(grid));
+        System.out.println(isAdmissibleOverpayment(prices, notes, x));
+
 
     }
+
+
+    public static boolean isAdmissibleOverpayment(double[] prices, String[] notes, double x) {
+        double firstPrice= Arrays.stream(prices).sum();
+        double secondPrice=0;
+        for(String note : notes){
+            int i=0;
+            String delims = "[%]+";
+            String[] tokens = note.split(delims);
+            if(tokens[0].equalsIgnoreCase("Same as in-store")){
+                secondPrice+=prices[i];
+                i++;
+            }
+            else if(tokens[1].equals(" higher than in-store")){
+                Double value= Double.parseDouble(tokens[0]);
+                prices[i]= prices[i] + prices[i]*value/100;
+                secondPrice+=prices[i];
+                i++;
+            }
+            else if(tokens[1].equalsIgnoreCase(" lower than in-store")){
+                Double value= Double.parseDouble(tokens[0]);
+                prices[i]= prices[i] - prices[i]*value/100;
+                secondPrice+=prices[i];
+                i++;
+            }
+        }
+        double difference= secondPrice - firstPrice;
+        if(difference>=x)
+            return true;
+        else
+            return false;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static boolean sudoku(int[][] grid) {
         HashSet<Integer> numbers= new HashSet<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
@@ -98,29 +154,6 @@ public class ProgrammingAssignments2 {
         }
         return true;
     }
-
-
-
-
-    public static boolean controlBox(int[][] grid){
-        int sum=0;
-        for(int i=0;i<3;i++) {
-            for(int j=0;j<9;j++) {
-                sum += grid[i][j];
-            }
-        }
-        return true;
-    }
-
-
-
-
-
-
-
-
-
-
 
 //    public static int number=1;
 //    public static int[][] spiralNumbers(int n) {
@@ -280,7 +313,6 @@ public class ProgrammingAssignments2 {
 //        }
 //        return stringBuilder.toString();
 //    }
-
 
     static int digitsProduct(int product) {
         if (product == 0) return 10;
