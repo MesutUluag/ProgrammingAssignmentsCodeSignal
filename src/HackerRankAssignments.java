@@ -1,8 +1,4 @@
-import com.sun.xml.internal.fastinfoset.stax.events.Util;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class HackerRankAssignments {
@@ -25,8 +21,20 @@ public class HackerRankAssignments {
 //        rotLeft(i,3);
 
 //        int[] i = {2,1,5,3,4};
-        int[] i = {1, 2, 5, 3, 7, 8, 6, 4};
-        minimumBribes(i);
+//        int[] i = {1, 5, 3, 7, 8, 6, 4};
+//        minimumBribes(i);
+//        System.out.println(missingNumber(i));
+        LinkedList<Integer> l1= new LinkedList<>();
+        l1.add(4);
+        l1.add(8);
+        l1.add(15);
+        l1.add(19);
+        LinkedList<Integer> l2= new LinkedList<>();
+        l2.add(7);
+        l2.add(9);
+        l2.add(10);
+        l2.add(16);
+        mergeAndSortTwoLinkedList(l1,l2);
     }
 
     static int sockMerchant(int n, int[] ar) {
@@ -154,6 +162,35 @@ private static void minimumBribes(int[] arr) {
         arr[b] = temp;
     }
 
+    public static Integer missingNumber(int[] numbers){
+        numbers = Arrays.stream(numbers).sorted().toArray();
+        for(int i=0; i<numbers.length; i++){
+            if(numbers[i]!=i+1)
+                return i+1;
+        }
+        return 0;
+    }
+
+    public static LinkedList<Integer> mergeAndSortTwoLinkedList(LinkedList<Integer> l1, LinkedList<Integer> l2){
+
+        l1.addAll(l2);
+        Collections.sort(l1);
+        System.out.println(l1.toString());
+
+        return l1;
+    }
+
+    class Node{
+        int nextPointer;
+        int arbitraryPointer;
+    }
+
+
+
 }
+
+
+
+
 
 
