@@ -24,17 +24,25 @@ public class HackerRankAssignments {
 //        int[] i = {1, 5, 3, 7, 8, 6, 4};
 //        minimumBribes(i);
 //        System.out.println(missingNumber(i));
-        LinkedList<Integer> l1= new LinkedList<>();
-        l1.add(4);
-        l1.add(8);
-        l1.add(15);
-        l1.add(19);
-        LinkedList<Integer> l2= new LinkedList<>();
-        l2.add(7);
-        l2.add(9);
-        l2.add(10);
-        l2.add(16);
-        mergeAndSortTwoLinkedList(l1,l2);
+//        LinkedList<Integer> l1= new LinkedList<>();
+//        l1.add(4);
+//        l1.add(8);
+//        l1.add(15);
+//        l1.add(19);
+//        LinkedList<Integer> l2= new LinkedList<>();
+//        l2.add(7);
+//        l2.add(9);
+//        l2.add(10);
+//        l2.add(16);
+//        mergeAndSortTwoLinkedList(l1,l2);
+
+        String s="applepie";
+        Set<String> dictionary= new HashSet<>();
+        dictionary.add("apple");
+        dictionary.add("pear");
+        dictionary.add("pier");
+        dictionary.add("pie");
+        System.out.println(canSegmentString(s,dictionary));
     }
 
     static int sockMerchant(int n, int[] ar) {
@@ -135,7 +143,7 @@ public class HackerRankAssignments {
     }
 
 //    int[] i = {2,1,5,3,4};
-private static void minimumBribes(int[] arr) {
+    private static void minimumBribes(int[] arr) {
     int swapCount = 0;
 
     for (int i = arr.length - 1; i >= 0; i--) {
@@ -176,18 +184,44 @@ private static void minimumBribes(int[] arr) {
         l1.addAll(l2);
         Collections.sort(l1);
         System.out.println(l1.toString());
-
+        StringBuilder stringBuilder= new StringBuilder();
+        stringBuilder.setLength(0); //clears string builder
         return l1;
     }
 
-    class Node{
-        int nextPointer;
-        int arbitraryPointer;
+
+    public static boolean canSegmentString(String s, Set<String> dictionary){
+        Set<String> combinations = getCombinations(dictionary);
+
+        if(s== null || dictionary.isEmpty()){
+            return false;
+        }
+
+        for(String str: combinations){
+            if(str.equals(s))
+                return true;
+        }
+        return false;
     }
 
+    public static Set<String> getCombinations(Set<String> dictionary){
+        StringBuilder str = new StringBuilder();
+        Set<String> result= new HashSet<>();
+        for(String i: dictionary){
+            for(String j: dictionary){
+                str.append(i).append(j);
+                result.add(str.toString());
+                str.setLength(0);
+            }
+            str.setLength(0);
+        }
+        return result;
+    }
+    
 
 
 }
+
 
 
 
