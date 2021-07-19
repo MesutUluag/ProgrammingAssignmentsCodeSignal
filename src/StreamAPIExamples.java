@@ -1,7 +1,9 @@
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalDouble;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,5 +24,16 @@ public class StreamAPIExamples {
        String commaSeperatedNames = employees.stream().map(e-> e.getId() + "," + e.getName()).collect(Collectors.joining(";"));
 //       System.out.println(commaSeperatedNames);
 
+        Map<Integer, Employee> employeeMap = employees.stream().collect(Collectors.toMap(Employee::getId, Function.identity()));
+//        System.out.println(employeeMap);
+
+        OptionalDouble averageSalary2 = employeeMap.entrySet().stream().filter(e-> e.getValue().getGrade().equalsIgnoreCase("A")).map(e-> e.getValue().getSalary()).mapToDouble(x->x).average();
+//        System.out.println(averageSalary2);
+
+        String commaSeperatedObject = employeeMap.entrySet().stream().map(e-> e.getValue().getId() + "," + e.getValue().getName()).collect(Collectors.joining(";"));
+//        System.out.println(commaSeperatedObject);
+
+        employeeMap.entrySet().stream().forEach(e-> e.getValue().setId(e.getValue().getId() + 1));
+//        System.out.println(employeeMap);
     }
 }
